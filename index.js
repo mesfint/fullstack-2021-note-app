@@ -1,9 +1,6 @@
 const express = require('express');
 const app = express();
-const cors = require('cors');
 
-app.use(express.static('build'));
-app.use(cors());
 app.use(express.json());
 
 const requestLogger = (request, response, next) => {
@@ -32,18 +29,6 @@ let notes = [
   {
     id: 3,
     content: 'GET and POST are the most important methods of HTTP protocol',
-    date: '2020-01-10T19:20:14.298Z',
-    important: true,
-  },
-  {
-    id: 4,
-    content: 'Deploy backend app in heroku',
-    date: '2020-01-10T19:20:14.298Z',
-    important: true,
-  },
-  {
-    id: 5,
-    content: 'Deploy backend app in heroku',
     date: '2020-01-10T19:20:14.298Z',
     important: true,
   },
@@ -107,7 +92,7 @@ const unknownEndpoint = (request, response) => {
 
 app.use(unknownEndpoint);
 
-const PORT = process.env.PORT || 3001;
+const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
