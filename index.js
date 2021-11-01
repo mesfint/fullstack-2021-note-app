@@ -1,13 +1,13 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 
 app.use(express.json());
 
 const requestLogger = (request, response, next) => {
-  console.log('Method:', request.method);
-  console.log('Path:  ', request.path);
-  console.log('Body:  ', request.body);
-  console.log('---');
+  console.log("Method:", request.method);
+  console.log("Path:  ", request.path);
+  console.log("Body:  ", request.body);
+  console.log("---");
   next();
 };
 
@@ -16,29 +16,29 @@ app.use(requestLogger);
 let notes = [
   {
     id: 1,
-    content: 'HTML is easy',
-    date: '2020-01-10T17:30:31.098Z',
+    content: "HTML is easy",
+    date: "2020-01-10T17:30:31.098Z",
     important: true,
   },
   {
     id: 2,
-    content: 'Browser can execute only Javascript',
-    date: '2020-01-10T18:39:34.091Z',
+    content: "Browser can execute only Javascript",
+    date: "2020-01-10T18:39:34.091Z",
     important: false,
   },
   {
     id: 3,
-    content: 'GET and POST are the most important methods of HTTP protocol',
-    date: '2020-01-10T19:20:14.298Z',
+    content: "GET and POST are the most important methods of HTTP protocol",
+    date: "2020-01-10T19:20:14.298Z",
     important: true,
   },
 ];
 
-app.get('/', (req, res) => {
-  res.send('<h1>Hello World!</h1>');
+app.get("/", (req, res) => {
+  res.send("<h1>Hello World!</h1>");
 });
 
-app.get('/api/notes', (req, res) => {
+app.get("/api/notes", (req, res) => {
   res.json(notes);
 });
 
@@ -47,12 +47,12 @@ const generateId = () => {
   return maxId + 1;
 };
 
-app.post('/api/notes', (request, response) => {
+app.post("/api/notes", (request, response) => {
   const body = request.body;
 
   if (!body.content) {
     return response.status(400).json({
-      error: 'content missing',
+      error: "content missing",
     });
   }
 
@@ -68,7 +68,7 @@ app.post('/api/notes', (request, response) => {
   response.json(note);
 });
 
-app.get('/api/notes/:id', (request, response) => {
+app.get("/api/notes/:id", (request, response) => {
   const id = Number(request.params.id);
   const note = notes.find((note) => note.id === id);
 
@@ -79,7 +79,7 @@ app.get('/api/notes/:id', (request, response) => {
   }
 });
 
-app.delete('/api/notes/:id', (request, response) => {
+app.delete("/api/notes/:id", (request, response) => {
   const id = Number(request.params.id);
   notes = notes.filter((note) => note.id !== id);
 
@@ -87,7 +87,7 @@ app.delete('/api/notes/:id', (request, response) => {
 });
 
 const unknownEndpoint = (request, response) => {
-  response.status(404).send({ error: 'unknown endpoint' });
+  response.status(404).send({ error: "unknown endpoint" });
 };
 
 app.use(unknownEndpoint);
